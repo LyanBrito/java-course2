@@ -1,10 +1,14 @@
 package Car;
 
-class Carro extends  Veiculo {
+class Carro extends Veiculo {
     protected float velMedia = 80f;
 
     @Override
-    public float calcularTempo(float velMedia) {
-        return super.calcularTempo(velMedia);
+    public float calcularTempo(float distancia) {
+        return distancia / this.velMedia;
+    }
+
+    public float getVelMedia() {
+        return this.velMedia;
     }
 }
