@@ -8,10 +8,8 @@ public class Main {
                 Symbols: 🍎🫐🍓🍒🍄🪺
                 """);
 
-        Roulet roulet = new Roulet();
-
-        System.out.println(roulet.getValue());
-//        roulet.validValues();
+        Spin spin = new Spin();
+        spin.validLoop();
 
 //      iniciar
     }

@@ -1,18 +1,21 @@
 package JackPot;
 
 import java.util.Random;
+import java.util.Scanner;
 
-public class Roulet {
+public class Spin {
     private String value;
     private int randValue;
     private String index1;
     private String index2;
     private String index3;
+    private int saldo;
+    Saldo s = new Saldo();
+    Scanner sc = new Scanner(System.in);
 
     public int randIndex(int randValue) {
         Random rand = new Random();
         this.randValue = rand.nextInt(0, 5);
-
         return randValue;
     }
 
@@ -38,31 +41,59 @@ public class Roulet {
                 this.value = "\uD83E\uDEBA";
                 break;
         }
-        return value;
+        return this.value;
+    }
+
+    public String getValue() {
+        return index1 + index2 + index3;
     }
 
     public void setValues() {
-        this.value = spinIndex(this.value);
         this.index1 = spinIndex(value);
         this.index2 = spinIndex(value);
         this.index3 = spinIndex(value);
     }
 
-    public String getValue() {
-        setValues();
-        return this.index1 + this.index2 + this.index3;
-    }
 
     public void validValues() {
         setValues();
-        if (this.index1.equals(this.index2) && this.index2.equals(this.index3)) {
-            System.out.println("ganhou 3");
-        } else if (this.index1.equals(this.index2) || this.index2.equals(this.index3) || this.index1.equals(this.index3)) {
-            System.out.println("ganhou 2");
-        } else {
-            System.out.println("perdeu fih");
+        s.setSaldo(this.saldo);
+        System.out.println("saldo: " + s.getSaldo());
+        saldo = s.getSaldo();
+        int aposta = s.Aposta();
+        System.out.println(getValue());
 
+        if (this.index1.equals(this.index2) && this.index2.equals(this.index3)) {
+            System.out.println("JackPot!!!");
+            this.saldo = saldo + (aposta * 3);
+            System.out.println("Seu saldo: " + saldo);
+        } else if (this.index1.equals(this.index2) || this.index2.equals(this.index3) || this.index1.equals(this.index3)) {
+            System.out.println("Double!!");
+            this.saldo = saldo + (aposta * 2);
+            System.out.println("Seu saldo: " + saldo);
+        } else {
+            System.out.println("Perdeu :(");
+            this.saldo = saldo - aposta;
+            System.out.println("Seu saldo: " + this.saldo);
         }
 
     }
+
+    public void validLoop() {
+        this.saldo = 100;
+        String res;
+        do {
+            validValues();
+            if (saldo <= 0) {
+                System.out.println("saldo insuficiente, perdeu mané");
+                break;
+            } else {
+                System.out.println("Continuar? (S/N)");
+                res = sc.nextLine();
+
+            }
+
+        } while (res.equalsIgnoreCase("S"));
+    }
+
 }
