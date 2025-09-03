@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Pessoa {
+    Scanner sc = new Scanner(System.in);
     private String nome;
     private int idade;
     private int id;
@@ -19,11 +20,7 @@ public class Pessoa {
     }
 
     public void setNome(String nome) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digite o nome da pessoa: ");
-        nome = sc.nextLine();
         this.nome = nome;
-
     }
 
     public int getIdade() {
@@ -31,9 +28,6 @@ public class Pessoa {
     }
 
     public void setIdade(int idade) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digite a idade da pessoa: ");
-        idade = sc.nextInt();
         this.idade = idade;
     }
 
@@ -42,67 +36,82 @@ public class Pessoa {
     }
 
     public void setId(int id) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digite o id da pessoa: ");
-        id = sc.nextInt();
         this.id = id;
     }
 
     @Override
     public String toString() {
-        return "Pessoa{" + "nome=" + nome + ", idade=" + idade + ", id=" + id + '}';
+        return "Nome: " + nome + ", Idade: " + idade + ", Id: " + id + "\n";
     }
 
-    public void setPessoa(ArrayList<Pessoa> cache) {
-        Scanner sc = new Scanner(System.in);
-        setNome(nome);
-        setIdade(idade);
-        setId(id);
-        cache.add(new Pessoa(getNome(), getIdade(), getId()));
+    public Pessoa setPessoa() {
+        int newId = 6;
+
+        System.out.println("Digite o nome da pessoa: ");
+        this.nome = sc.next();
+        sc.nextLine();
+
+        System.out.println("Digite a idade da pessoa: ");
+        this.idade = sc.nextInt();
+        sc.nextLine();
+
+        setId(newId++);
+        return new Pessoa(getNome(), getIdade(), getId());
 
     }
 
-    public String validaCache(ArrayList<Pessoa> cache, ArrayList<Pessoa> bd) {
-        Scanner sc = new Scanner(System.in);
+    public String validaCache(ArrayList<Pessoa> bd, ArrayList<Pessoa> cache) {
         System.out.println("Digite o id do registro que deseja visualizar: ");
         int op = sc.nextInt();
         sc.nextLine();
 
-        System.out.println("Verificando o Cache ...");
-        if (cache.isEmpty()) {
-            System.out.println("Cache vazio, verificando a Base de Dados ...");
-            for (Pessoa pessoa : bd) {
-                if (pessoa.getId() == bd.get(op - 1).getId()) {
-                    System.out.println("Registro encontrado!");
-                    return bd.get(op - 1).toString();
-                } else {
-                    setPessoa(cache);
-                    return cache.get(op - 1).toString();
-                }
-            }
-        } else {
-            for (Pessoa p : cache) {
-                if (p.getId() == cache.get(op - 1).getId()) {
-                    System.out.println("Registro encontrado");
-                    return cache.get(op - 1).toString();
-                }
+        for (Pessoa value : cache) {
+            if (op == value.getId()) {
+                System.out.println("Registro encontrado no cache!");
+                return "Nome: " + value.getNome() + ", Idade: " + value.getIdade();
             }
         }
-        return "Pessao não encontrada";
+        for (Pessoa pessoa : bd) {
+            if (op == pessoa.getId()) {
+                System.out.println("Registro encontrado!");
+                cache.add(bd.get(op - 1));
+                if (cache.size() > 10) {
+                    cache.removeFirst();
+                }
+                return "Nome: " + pessoa.getNome() + ", Idade: " + pessoa.getIdade();
+            }
+        }
+        return "Pessoa não encontrada";
+    }
+
+    public void loop(ArrayList<Pessoa> cache, ArrayList<Pessoa> bd) {
+        int op;
+        while (true) {
+            System.out.println("""
+                    O que deseja fazer?
+                    1 - Cadastrar novo usuário
+                    2 - Consultar usuário por id
+                    3 - Consultar Cache
+                    4 - Sair
+                    """);
+            op = sc.nextInt();
+            switch (op) {
+                case 1:
+                    bd.add(setPessoa());
+                    break;
+                case 2:
+                    System.out.println(bd.getFirst().validaCache(bd, cache));
+                    break;
+                case 3:
+                    System.out.println(cache.toString());
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("valor inválido");
+                    break;
+            }
+        }
+
     }
 }
-
-//        if (cache.isEmpty()) {
-//            System.out.println("Nao tem nenhum registro");
-//            System.out.println("Verificando a Base de Dados");
-//            if ((op - 1) == setId2(bd, op)) {
-//                System.out.println("Registro encontrado");
-//                System.out.println(bd.get(op - 1).toString());
-//            } else {
-//            }
-//
-//        } else {
-//            System.out.println("Registro encontrado");
-//            System.out.println(cache.get(op - 1).toString());
-//            return;
-

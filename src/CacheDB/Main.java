@@ -25,7 +25,8 @@ public class Main {
 
 //        p.validaCache(cache, op , bd);
 //        p.validaId(bd, sc, op);
-        System.out.println(p.validaCache(cache, bd));
+//        System.out.println(p.validaCache(cache, bd));
+        p.loop(cache, bd);
 
     }
 }
