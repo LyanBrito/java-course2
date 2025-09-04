@@ -4,23 +4,32 @@ abstract class Conta {
     private int numero;
     private int agencia;
     private String titular;
-    private int saldo;
+    private double saldo;
 
-    public Conta(int agencia, int numero, int saldo, String titular) {
+    public Conta(int agencia, int numero, double saldo, String titular) {
         this.agencia = agencia;
         this.numero = numero;
         this.saldo = saldo;
         this.titular = titular;
     }
 
-    public void depositar(double valor){
+    public void depositar(double valor) {
         this.saldo += valor;
     }
-    public void sacar(double valor){
+
+    public void sacar(double valor) {
         this.saldo -= valor;
     }
-    public int exibirSaldo(){
-        return this.saldo;
+
+    public double getSaldo() {
+        return saldo;
     }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     abstract double calcularTarifaMensal();
+
 }
+

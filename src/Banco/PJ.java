@@ -1,7 +1,7 @@
 package Banco;
 
 public class PJ extends Conta {
-    public PJ(int agencia, int numero, int saldo, String titular) {
+    public PJ(int agencia, int numero, double saldo, String titular) {
         super(agencia, numero, saldo, titular);
     }
 
@@ -9,9 +9,9 @@ public class PJ extends Conta {
     double calcularTarifaMensal() {
         return 20;
     }
-
     @Override
-    public void sacar(double valor) {
-
+    public void sacar(double valor){
+        super.sacar(exibirSaldo() + 1.5);
     }
+
 }
