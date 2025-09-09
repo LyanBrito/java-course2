@@ -4,35 +4,41 @@ import java.util.Scanner;
 
 public class Main {
     public static void setConta(Conta conta) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("""
-                O que  deseja fazer?
-                1 - Analisar Saldo
-                2 - Realizar Saque
-                3 - Deposito
-                4 - Sair
-                """);
-        int op = sc.nextInt();
-        switch (op) {
-            case 1:
-                System.out.println("Saldo Atual: " + conta.getSaldo());
-                break;
-            case 2:
-                System.out.println("Valor do Saque: ");
-                double valorSaque = sc.nextDouble();
-                conta.sacar(valorSaque);
-                break;
-            case 3:
-                System.out.println("Valor do Deposito: ");
-                double valorDeposito = sc.nextDouble();
-                conta.depositar(valorDeposito);
-                break;
-            case 4:
-                System.out.println("Saindo . . .");
-                break;
-            default:
-                System.out.println("Opção errada!");
-        }
+        int op;
+        do {
+
+            Scanner sc = new Scanner(System.in);
+            System.out.println("""
+                    O que  deseja fazer?
+                    1 - Analisar Saldo
+                    2 - Realizar Saque
+                    3 - Deposito
+                    4 - Sair
+                    """);
+            op = sc.nextInt();
+            switch (op) {
+                case 1:
+                    System.out.println("Saldo Atual: " + conta.getSaldo());
+                    break;
+                case 2:
+                    System.out.println("Valor do Saque: ");
+                    double valorSaque = sc.nextDouble();
+                    conta.sacar(valorSaque);
+                    System.out.println("Saldo Atual: " + conta.getSaldo());
+                    break;
+                case 3:
+                    System.out.println("Valor do Deposito: ");
+                    double valorDeposito = sc.nextDouble();
+                    conta.depositar(valorDeposito);
+                    System.out.println("Saldo Atual: " + conta.getSaldo());
+                    break;
+                case 4:
+                    System.out.println("Saindo . . .");
+                    break;
+                default:
+                    System.out.println("Opção errada!");
+            }
+        } while (op != 4);
     }
 
     public static void main(String[] args) {
@@ -41,29 +47,34 @@ public class Main {
         Conta pc = new PC(003, 6, 1500, "Papai");
         Conta pj = new PJ(004, 5, 4000, "Batata");
 
-
-        while (true) {
+        int option;
+        do {
             System.out.println("""
                     O que deseja fazer?
                     1 - Analisar Conta Corrente
                     2 - Analisar Conta Poupança
-                    3 - Analisar Conta Pessoa Juridica
+                    3 - Analisar Conta Pessoa Jurídica
                     4 - Sair
                     """);
-            int option = sc.nextInt();
+            option = sc.nextInt();
             switch (option) {
                 case 1:
                     setConta(cc);
+                    break;
                 case 2:
                     setConta(pc);
+                    break;
                 case 3:
                     setConta(pj);
+                    break;
                 case 4:
+                    System.out.println("Saindo . . .");
                     break;
                 default:
                     System.out.println("Opção Inválida");
+                    break;
             }
 
-        }
+        } while (option != 4);
     }
 }

@@ -11,7 +11,7 @@ public class PJ extends Conta {
     }
     @Override
     public void sacar(double valor){
-        super.sacar(exibirSaldo() + 1.5);
+        super.sacar( getSaldo() + 1.5);
     }
 
 }

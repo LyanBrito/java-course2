@@ -1,6 +1,6 @@
 package interfaces;
 
-public class Pessoa  extends SerVivo implements Coracao, Rim{
+public class Pessoa extends SerVivo implements Coracao, Rim{
     @Override
     public void bater() {
         System.out.println("Bater");
