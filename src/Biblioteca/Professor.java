@@ -1,11 +1,9 @@
 package Biblioteca;
 
 public class Professor extends Usuario{
-
     public Professor(int id, String nome, String email) {
         super(id, nome, email);
     }
-
     @Override
     public int getLimiteEmprestimo() {
         return 5;

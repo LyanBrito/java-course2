@@ -3,11 +3,11 @@ package Biblioteca;
 public class Livro implements Imprestavel{
     private String title;
     private String autor;
-    private boolean status;
+    private boolean isEmprestado;
 
-    public Livro(String autor, boolean status, String title) {
+    public Livro(String autor, boolean isEmprestado, String title) {
         this.autor = autor;
-        this.status = status;
+        this.isEmprestado = isEmprestado;
         this.title = title;
     }
 
@@ -20,11 +20,11 @@ public class Livro implements Imprestavel{
     }
 
     public boolean isStatus() {
-        return status;
+        return isEmprestado;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setStatus(boolean isEmprestado) {
+        this.isEmprestado = isEmprestado;
     }
 
     public String getTitle() {
@@ -40,14 +40,14 @@ public class Livro implements Imprestavel{
 
     @Override
     public void Emprestar(Usuario u) {
-        this.status = false;
+        this.isEmprestado = false;
         System.out.println("Livro: " + this.title);
         System.out.println("Livro emprestado com sucesso!");
     }
 
     @Override
     public void Devolver(){
-        this.status = true;
+        this.isEmprestado = true;
         System.out.println("Livro: " + this.title);
         System.out.println("Livro devolvido com sucesso!");
     }
