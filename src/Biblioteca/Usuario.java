@@ -36,4 +36,13 @@ abstract class Usuario {
     }
 
     public abstract int getLimiteEmprestimo();
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }

@@ -5,9 +5,8 @@ public class Livro implements Imprestavel{
     private String autor;
     private boolean isEmprestado;
 
-    public Livro(String autor, boolean isEmprestado, String title) {
+    public Livro(String autor, String title) {
         this.autor = autor;
-        this.isEmprestado = isEmprestado;
         this.title = title;
     }
 
