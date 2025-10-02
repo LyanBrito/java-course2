@@ -1,5 +1,6 @@
 package Biblioteca;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -76,32 +77,44 @@ public class Main {
 
                 case 3:
                     System.out.println("Selecione o livro que deseja devolver:");
-                    System.out.println("Livros:");
-                    for (Livro livro : Biblioteca.livros) {
-                        System.out.println(livro);
-                    }
-                    int livroIndex = sc.nextInt();
-                    for (Livro livro : Biblioteca.livros) {
-                        if (livro.getBookId() == livroIndex) {
-                            for (Usuario user : Biblioteca.usuarios) {
-                                for (Emprestimo emprestimo : Emprestimo.emprestimos) {
-                                    if (emprestimo.getUsuario().equals(user)) {
-//                                       emprestimo.getLivro();
-                                        System.out.println("Usuario: " + user.getNome() + " Emprestimo: " + emprestimo.getLivro());
-                                        Emprestimo.setDevolução(livro, user);
-                                        livro.Devolver();
-                                        System.out.println("Livro devolvido com sucesso!");
-
-                                    }
-
+//                    System.out.println("Livros:");
+//                    for (Livro livro : Biblioteca.livros) {
+//                        System.out.println(livro);
+//                    }
+                    for (Usuario user : Biblioteca.usuarios) {
+                         for (Emprestimo emprestimo : Emprestimo.emprestimos) {
+                                if (emprestimo.getUsuario().equals(user)) {
+                                    System.out.print("\n \t"+ emprestimo.getLivro().getBookId() + emprestimo.getLivro() + "\n");
                                 }
                             }
                         }
 
+
+//                    printar os livros emprestados e não todos
+                    int livroIndex = sc.nextInt();
+                    boolean livroEncontrado = false;
+                    for (int j = 0; j < Biblioteca.livros.size(); j++) {
+                        Livro livro = Biblioteca.livros.get(j);
+                        if (livro.getBookId() == livroIndex) {
+                            for (int k = Emprestimo.emprestimos.size() - 1; k >= 0; k--) {
+                                Emprestimo emprestimo = Emprestimo.emprestimos.get(k);
+                                if (emprestimo.getLivro().equals(livro)) {
+                                    Emprestimo.setDevolução(livroIndex);
+                                    livro.Devolver();
+                                    livroEncontrado = true;
+                                    System.out.println("Livro devolvido com sucesso!");
+                                    break;
+                                }
+                            }
+                            if (livroEncontrado) break;
+                        }
                     }
 
-
+                    if (!livroEncontrado) {
+                        System.out.println("Livro não encontrado ou não está emprestado.");
+                    }
                     break;
+
                 case 4:
                     System.out.println("Livros:");
                     for (Livro livro : Biblioteca.livros) {

@@ -72,9 +72,8 @@ public class Livro implements Imprestavel{
     @Override
     public void Devolver(){
         // verificador -> isEmprestado? || : sout"Impossivel devolver livro não emrpestsdo"
-        if (getStatus() == false) {
-        } else{
-            setStatus(false);
+        if (getStatus()) {
+          setStatus(false);
         }
     }
 }
