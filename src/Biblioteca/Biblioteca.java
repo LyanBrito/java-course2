@@ -14,12 +14,8 @@ public class Biblioteca {
         livros.add(livro);
     }
 
-    public static void returnLivros(Livro livro) {
-        livros.remove(livro);
-    }
-
     public static void emprestarLivro(Livro livro, Usuario usuario) {
         livro.Emprestar(usuario);
         Emprestimo.setEmprestimos(livro, usuario);
-    }re
+    }
 }

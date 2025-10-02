@@ -3,7 +3,7 @@ package Biblioteca;
 public class Livro implements Imprestavel{
     private String title;
     private String autor;
-    // private String bookCode;
+    private int bookId;
     private boolean isEmprestado;
 
     public Livro(String autor, String title) {
@@ -43,17 +43,23 @@ public class Livro implements Imprestavel{
         this.title = title;
     }
 
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
 
     @Override
     public String toString() {
-        return "Livro [title=" + getTitle() + ", autor=" + getAutor() + "]";
+        return "title: " + getTitle() + ", autor: " + getAutor();
     }
 
     @Override
     public void Emprestar(Usuario u) {
         // verificador -> isEmpprestado? sout"Ja emprestado" : ||
         boolean status = getStatus();
-
         if (status == true) {
             System.out.println("Livro ja emprestado");
         } else {
@@ -66,7 +72,9 @@ public class Livro implements Imprestavel{
     @Override
     public void Devolver(){
         // verificador -> isEmprestado? || : sout"Impossivel devolver livro não emrpestsdo"
-
-        System.out.println("Livro devolvido com sucesso!");
+        if (getStatus() == false) {
+        } else{
+            setStatus(false);
+        }
     }
 }

@@ -21,12 +21,12 @@ public class Main {
         Biblioteca.addLivros(l2);
 
         System.out.println("Seja bem vindo ao sistema de biblioteca");
-        System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Sair");
-
-        int op = sc.nextInt();
-        sc.nextLine();
 
         while (true) {
+            System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Ver Livros\n5 - Ver Empréstimos\n6 - Sair");
+
+            int op = sc.nextInt();
+            sc.nextLine();
 
             switch (op) {
                 case 1:
@@ -34,38 +34,25 @@ public class Main {
                     novoLivro.setAutor(sc.nextLine());
 
                     System.out.println("Digite o nome do Livro");
-                    System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Sair");
-                    op = sc.nextInt();
-                    sc.nextLine();
-
                     novoLivro.setTitle(sc.nextLine());
                     Biblioteca.addLivros(novoLivro);
 
                     for (Livro livro : Biblioteca.livros) {
                         System.out.println(livro);
                     }
-
-                        System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Sair");
-                    op = sc.nextInt();
-                    sc.nextLine();
                     break;
                 case 2:
+                    Usuario usuario;
                     System.out.println("Escolha um usuario:");
-
                     for (int i = 0; i < Biblioteca.usuarios.size(); i++) {
                         System.out.println("Usuario " + i + ": " + Biblioteca.usuarios.get(i));
                     }
-
                     int usuarioIndex = sc.nextInt();
 
-                    Usuario usuario;
                     if (usuarioIndex >= 0 && usuarioIndex < Biblioteca.usuarios.size()) {
                         usuario = Biblioteca.usuarios.get(usuarioIndex);
                     } else {
                         System.out.println("Usuario invalido");
-                        System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Sair");
-                        op = sc.nextInt();
-                        sc.nextLine();
                         break;
                     }
 
@@ -76,26 +63,70 @@ public class Main {
                         i++;
                     }
                     int index = sc.nextInt();
-                    if (usuario.getUserEmprestimos(int emprestimos++) >= usuario.getLimiteEmprestimo()){
+                    int emprestimos = 0;
+                    if (usuario.getUserEmprestimos() >= usuario.getLimiteEmprestimo()) {
                         System.out.println("Limite de emprestimos atingido");
-                        System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Sair");
-                        op = sc.nextInt();
-                        sc.nextLine();
                         break;
                     }
-
+                    usuario.setUserEmprestimos();
                     System.out.println("Livro " + index + ": " + Biblioteca.livros.get(index));
                     Biblioteca.emprestarLivro(Biblioteca.livros.get(index), usuario);
-                        System.out.println("\nO que deseja fazer agora?\n1 - Cadastrar Livro\n2 - Empréstimo\n3 - Devolução\n4 - Sair");
-                    op = sc.nextInt();
-                    sc.nextLine();
+
                     break;
 
                 case 3:
-                    System.out.println("devolução");
+                    System.out.println("Selecione o livro que deseja devolver:");
+                    System.out.println("Livros:");
+                    for (Livro livro : Biblioteca.livros) {
+                        System.out.println(livro);
+                    }
+                    int livroIndex = sc.nextInt();
+                    for (Livro livro : Biblioteca.livros) {
+                        if (livro.getBookId() == livroIndex) {
+                            for (Usuario user : Biblioteca.usuarios) {
+                                for (Emprestimo emprestimo : Emprestimo.emprestimos) {
+                                    if (emprestimo.getUsuario().equals(user)) {
+//                                       emprestimo.getLivro();
+                                        System.out.println("Usuario: " + user.getNome() + " Emprestimo: " + emprestimo.getLivro());
+                                        Emprestimo.setDevolução(livro, user);
+                                        livro.Devolver();
+                                        System.out.println("Livro devolvido com sucesso!");
+
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+
+
                     break;
                 case 4:
-                    System.out.println("tchau");
+                    System.out.println("Livros:");
+                    for (Livro livro : Biblioteca.livros) {
+                        System.out.println(livro);
+                    }
+                    break;
+                case 5:
+                    System.out.println("Livros emprestados:");
+                    for (Usuario user : Biblioteca.usuarios) {
+                        if (user.getUserEmprestimos() == 0) {
+                            System.out.print(user.getNome() + ": não possui emprestimos\n");
+                        } else {
+                            System.out.print(user.getNome() + ": ");
+                            for (Emprestimo emprestimo : Emprestimo.emprestimos) {
+                                if (emprestimo.getUsuario().equals(user)) {
+                                    System.out.print("\n \t" + emprestimo.getLivro() + "\n");
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+
+                case 6:
+                    System.out.println("Saindo . . .");
                     sc.close();
                     return;
                 default:

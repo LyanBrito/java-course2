@@ -33,6 +33,10 @@ public class Emprestimo {
         return emprestimos;
     }
 
+    public static void setDevolução(Livro livro, Usuario usuario) {
+        emprestimos.remove(new Emprestimo(livro, usuario));
+    }
+
     public static void setEmprestimos(Livro livro, Usuario usuario) {
         emprestimos.add(new Emprestimo(livro, usuario));
     }
