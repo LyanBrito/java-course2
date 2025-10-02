@@ -10,17 +10,16 @@ public class Biblioteca {
         usuarios.add(user);
     }
 
-    public void adicionarLivro(Livro livro) {
+    public static void addLivros(Livro livro) {
         livros.add(livro);
     }
 
-    public void devolverLivro(Livro livro) {
+    public static void returnLivros(Livro livro) {
         livros.remove(livro);
     }
 
-    public void emprestarLivro(Livro livro, Usuario usuario) {
+    public static void emprestarLivro(Livro livro, Usuario usuario) {
         livro.Emprestar(usuario);
-    }
-
-
+        Emprestimo.setEmprestimos(livro, usuario);
+    }re
 }

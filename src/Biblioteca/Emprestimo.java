@@ -3,7 +3,7 @@ package Biblioteca;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Emprestimo{
+public class Emprestimo {
     static List<Emprestimo> emprestimos = new ArrayList<>();
     private Livro livro;
     private Usuario usuario;
@@ -11,10 +11,6 @@ public class Emprestimo{
     public Emprestimo(Livro livro, Usuario usuario) {
         this.livro = livro;
         this.usuario = usuario;
-    }
-
-    public static void Emrpestar(Livro livro, Usuario usuario) {
-        emprestimos.add(new Emprestimo(livro, usuario));
     }
 
     public Livro getLivro() {
@@ -32,4 +28,13 @@ public class Emprestimo{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public static List<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public static void setEmprestimos(Livro livro, Usuario usuario) {
+        emprestimos.add(new Emprestimo(livro, usuario));
+    }
+
 }

@@ -4,6 +4,7 @@ abstract class Usuario {
     private int id;
     private String nome;
     private String email;
+    private int userEmprestimos = 0;
 
     public Usuario(int id, String nome, String email) {
         this.id = id;
@@ -33,6 +34,9 @@ abstract class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public void setUserEmprestimos(int userEmprestimos){
+        this.userEmprestimos = userEmprestimos;
     }
 
     public abstract int getLimiteEmprestimo();

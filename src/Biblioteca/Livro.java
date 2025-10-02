@@ -3,12 +3,21 @@ package Biblioteca;
 public class Livro implements Imprestavel{
     private String title;
     private String autor;
+    // private String bookCode;
     private boolean isEmprestado;
 
     public Livro(String autor, String title) {
         this.autor = autor;
         this.title = title;
     }
+
+    // public String getBookCode() {
+    //     return bookCode;
+    // }
+
+    // public void setBookCode(String bookCode) {
+    //     this.bookCode = bookCode;
+    // }
 
     public String getAutor() {
         return autor;
@@ -18,7 +27,7 @@ public class Livro implements Imprestavel{
         this.autor = autor;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return isEmprestado;
     }
 
@@ -34,20 +43,30 @@ public class Livro implements Imprestavel{
         this.title = title;
     }
 
-    public void Emprestar(){
+
+    @Override
+    public String toString() {
+        return "Livro [title=" + getTitle() + ", autor=" + getAutor() + "]";
     }
 
     @Override
     public void Emprestar(Usuario u) {
-        this.isEmprestado = false;
-        System.out.println("Livro: " + this.title);
-        System.out.println("Livro emprestado com sucesso!");
+        // verificador -> isEmpprestado? sout"Ja emprestado" : ||
+        boolean status = getStatus();
+
+        if (status == true) {
+            System.out.println("Livro ja emprestado");
+        } else {
+            setStatus(true);
+            System.out.println("Livro emprestado com sucesso");
+        }
+
     }
 
     @Override
     public void Devolver(){
-        this.isEmprestado = true;
-        System.out.println("Livro: " + this.title);
+        // verificador -> isEmprestado? || : sout"Impossivel devolver livro não emrpestsdo"
+
         System.out.println("Livro devolvido com sucesso!");
     }
 }
